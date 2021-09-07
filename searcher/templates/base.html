@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>bilibili 数码区搜索</title>
+
+    <link rel="stylesheet" href="{% static 'searcher/semantic.min.css' %}">
+    <script type="text/javascript" src="{% static 'searcher/semantic.min.js'%}"></script>
+    <style type="text/css">
+        .ui#content {
+            padding-top: 55px;
+        }
+
+        @font-face {
+            font-family: 'bili';
+            src: url({% static 'searcher/bilifont.ttf' %}) format('truetype'),
+            url({% static 'searcher/bilifont.woff' %}) format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="navbar" class="ui container">
+        <div class="ui top fixed menu">
+            <div class="item">
+                <font face="bili" size="5">&#xe725;</font>
+            </div>
+            <a class="item">视频列表</a>
+            <a class="item">UP 列表</a>
+            <div class="right menu">
+                <div class="item">
+                    <div class="ui icon input">
+                        <input type="text" placeholder="Search...">
+                        <i class="search link icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content" class="ui text container">
+        {% block main_block %}
+        {% endblock main_block %}
+    </div>
+
+    <div id="footer" class="ui vertical segment footer" style="">
+        <div class="ui center aligned container">
+            <div>数据来源于网络，侵权立删</div>
+            <div>&copy;2021&nbsp; <a href="https://github.com/Centaurus99">Centaurus99</a></div>
+            <a class="" title="GitHub" href="https://github.com/Centaurus99/search_engine_demo">
+                <i aria-hidden="true" class="github icon"></i>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
