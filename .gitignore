@@ -132,3 +132,5 @@ dmypy.json
 settings.py
 *.sqlite3
 data/
+*.ini
+*.swp
