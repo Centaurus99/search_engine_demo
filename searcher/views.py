@@ -9,7 +9,7 @@ from .models import Video, User, Comment
 
 class VideoList(generic.ListView):
     model = Video
-    paginate_by = 20
+    paginate_by = 12
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -23,7 +23,7 @@ class VideoList(generic.ListView):
 
 class UpList(generic.ListView):
     model = User
-    paginate_by = 20
+    paginate_by = 16
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
