@@ -30,6 +30,8 @@ $(function() {
                 var key_values = query.split("&");
                 var params = "?page=" + page_input.val();
                 for (var i = 0; i < key_values.length; i++) {
+                    if (!key_values[i])
+                        continue
                     if (key_values[i].split("=")[0] != "page") {
                         params += "&" + key_values[i]
                     }
