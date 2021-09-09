@@ -19,9 +19,17 @@
     <div class="ui divider"></div>
     <br />
 
+    {% if page_obj %}
     {% include "pagination.html" %}
     <br />
     <br />
+    {% else %}
+    <br /><br /><br /><br /><br /><br /><br />
+    <div class="ui item" align="center">
+        <font color="grey">这里什么也没有~</font>
+    </div>
+    <br /><br /><br /><br /><br /><br /><br />
+    {% endif %}
 
     <div class="ui four centered link cards">
         {% for obj in page_obj %}
@@ -50,7 +58,13 @@
 
     <br />
     <br />
+    {% if page_obj %}
     {% include "pagination.html" %}
+    {% endif %}
+
+    <br />
+    <div class="ui divider"></div>
+    <br />
 
 </main>
 {% endblock main_block %}
