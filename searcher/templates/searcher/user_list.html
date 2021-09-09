@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main_block %}
+<main>
+    <title>{{ title }}</title>
+
+    <h1 class="ui huge header" align="center">
+        <font face="bili" size="5">&#xe723; </font>
+        {{ h1 }}
+    </h1>
+
+    <h5 class="ui header" align="center">
+        <font color="grey">
+            {{ h2 }}
+        </font>
+    </h5>
+
+    <div class="ui divider"></div>
+    <br />
+
+    {% include "pagination.html" %}
+    <br />
+    <br />
+
+    <div class="ui four centered link cards">
+        {% for obj in page_obj %}
+        <a class="ui raised card" href="{% url 'searcher:up-detail' obj.mid %}">
+            <div class="content">
+                <img class="right floated ui tiny circular image" src="{% static 'searcher/data/'%}{{ obj.pic_path }}">
+                <div class="header">
+                    {{ obj.name }}
+                    <font face="bili" size="5">&#{{ obj.level_icon }};</font>
+                </div>
+                <div class="meta">
+                    <div class="item">
+                        关注数 {{ obj.attention }}
+                    </div>
+                    <div class="item">
+                        粉丝数 {{ obj.fans }}
+                    </div>
+                </div>
+                <div class="description">
+                    {{ obj.sign }}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <br />
+    <br />
+    {% include "pagination.html" %}
+
+</main>
+{% endblock main_block %}

@@ -1,4 +1,6 @@
 from django.db import models
+import time
+import json
 
 
 class Comment(models.Model):
@@ -7,7 +9,7 @@ class Comment(models.Model):
     spider = models.IntegerField(blank=False, null=False)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'COMMENT'
 
 
@@ -24,8 +26,20 @@ class User(models.Model):
     spider = models.IntegerField(blank=False, null=False)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'USER'
+        indexes = [
+            models.Index(fields=['-fans'], name='fans_idx'),
+        ]
+        ordering = ['-fans']
+
+    def pic_path(self):
+        return 'user_face/{}.{}'.format(self.mid, self.face.split('.')[-1])
+
+    def level_icon(self):
+        level_to_font = ['xe6cb', 'xe6cc', 'xe6cd',
+                         'xe6ce', 'xe6cf', 'xe6d0', 'xe6d1']
+        return level_to_font[self.level]
 
 
 class Video(models.Model):
@@ -52,5 +66,22 @@ class Video(models.Model):
     spider = models.IntegerField(blank=False, null=False)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'VIDEO'
+        indexes = [
+            models.Index(fields=['-view'], name='view_idx'),
+            models.Index(fields=['owner'], name='owner_idx'),
+        ]
+        ordering = ['-view']
+
+    def pic_path(self):
+        return 'video_pic/{}.{}'.format(self.aid, self.pic.split('.')[-1])
+
+    def pub_time(self):
+        return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(self.pubdate))
+
+    def get_owner(self):
+        return User.objects.get(mid=self.owner)
+
+    def get_comments(self):
+        return json.loads(Comment.objects.get(oid=self.aid).data)[:5]

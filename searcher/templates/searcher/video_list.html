@@ -3,28 +3,69 @@
 
 {% block main_block %}
 <main>
-    <div class="ui list">
+    <title>{{ title }}</title>
+
+    <h1 class="ui huge header" align="center">
+        <font face="bili" size="5">&#xe6e6; </font>
+        {{ h1 }}
+    </h1>
+
+    <h5 class="ui header" align="center">
+        <font color="grey">
+            {{ h2 }}
+        </font>
+    </h5>
+
+    <div class="ui divider"></div>
+    <br />
+
+    {% include "pagination.html" %}
+    <br />
+    <br />
+
+    <div class="ui four centered cards">
         {% for obj in page_obj %}
-        <li>{{ obj.title }}</li>
+        <a class="ui raised card" href="{% url 'searcher:video-detail' obj.aid %}">
+            <div class="image">
+                <img class="ui medium rounded image" src="{% static 'searcher/data/'%}{{ obj.pic_path }}">
+            </div>
+            <div class="content">
+                <div class="header">{{ obj.title }}</div>
+                <div class="meta">
+                    <span class="date">{{ obj.pub_time }}</span>
+                </div>
+            </div>
+            <div class="extra content">
+                <div class="ui two column grid">
+                    <div class="row">
+                        <div class="column">
+                            <font face="bili">&#xe6e6;</font>
+                            {{ obj.view }}
+                        </div>
+                        <div class="right aligned column">
+                            <font face="bili">&#xe6e7;</font>
+                            {{ obj.danmaku }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="extra content">
+                <object>
+                    <a class="item" href="{% url 'searcher:up-detail' obj.get_owner.mid %}">
+                        <div class="center aligned author">
+                            <img class="ui avatar image" src="{% static 'searcher/data/'%}{{ obj.get_owner.pic_path }}">
+                            {{ obj.get_owner.name }}
+                        </div>
+                    </a>
+                </object>
+            </div>
+        </a>
         {% endfor %}
     </div>
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
+    <br />
+    <br />
+    {% include "pagination.html" %}
 
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-
-            {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
 </main>
 {% endblock main_block %}

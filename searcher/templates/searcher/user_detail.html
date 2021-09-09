@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main_block %}
+<main>
+    <title>{{ object.name }}</title>
+
+    <div class="ui grid">
+        <div class="three column row">
+            <div class="column"></div>
+            <div class="column">
+                <img class="ui centered small circular image" src="{% static 'searcher/data/'%}{{ object.pic_path }}">
+            </div>
+            <div class="right aligned column">
+                <div class="ui mini statistics">
+                    <div class="ui statistic">
+                        <div class="value">
+                            {{ object.attention }}
+                        </div>
+                        <div class="label">
+                            关注
+                        </div>
+                    </div>
+                    <div class="ui statistic">
+                        <div class="value">
+                            {{ object.fans }}
+                        </div>
+                        <div class="label">
+                            粉丝
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="centered row">
+            <h2 class="ui header" align="center">
+                {{ object.name }}
+                <font face="bili" size="5">&#{{ object.level_icon }};</font>
+            </h2>
+        </div>
+
+        <div class="centered row">
+            {{ object.sign }}
+        </div>
+    </div>
+
+    <br />
+    <h3 class="ui horizontal divider header">
+        <i class="tags icon"></i>
+        TA的视频
+    </h3>
+    <br />
+
+    <div class="ui four centered cards">
+        {% for obj in page_obj %}
+        <a class="ui raised card" href="{% url 'searcher:video-detail' obj.aid %}">
+            <div class="image">
+                <img class="ui medium rounded image" src="{% static 'searcher/data/'%}{{ obj.pic_path }}">
+            </div>
+            <div class="content">
+                <div class="header">{{ obj.title }}</div>
+                <div class="meta">
+                    <span class="date">{{ obj.pub_time }}</span>
+                </div>
+            </div>
+            <div class="extra content">
+                <div class="ui two column grid">
+                    <div class="row">
+                        <div class="column">
+                            <font face="bili">&#xe6e6;</font>
+                            {{ obj.view }}
+                        </div>
+                        <div class="right aligned column">
+                            <font face="bili">&#xe6e7;</font>
+                            {{ obj.danmaku }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+
+    <br />
+    <br />
+    {% include "pagination.html" %}
+
+</main>
+{% endblock main_block %}

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main_block %}
+<main>
+    <title>{{ object.title }}</title>
+
+    <div class="ui grid">
+        <div class="twelve wide column" id="video">
+            <div class="ui segment">
+
+                <h2 class="ui header">{{ object.title }}</h2>
+
+                <div class="ui grid">
+                    <div class="row">
+                        <div class="two wide column">
+                            <font face="bili">&#xe6e6;</font>
+                            {{ object.view }}
+                        </div>
+                        <div class="two wide column">
+                            <font face="bili">&#xe6e7;</font>
+                            {{ object.danmaku }}
+                        </div>
+                        <div class="six wide column">
+                            发布于 {{ object.pub_time }}
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="meta-media" align="center">
+                    <iframe
+                        src="//player.bilibili.com/player.html?aid={{ object.aid }}&bvid={{ object.bvid }}&cid={{ object.cid }}&page=1"
+                        scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"
+                        class="video">
+                    </iframe>
+                </div>
+
+                <div class="ui grid">
+                    <div class="seven column row">
+                        <div class="column"></div>
+                        <div class="column">
+                            <font face="bili" size="4">&#xe6e0; {{ object.like }}</font>
+                        </div>
+                        <div class="column">
+                            <font face="bili" size="4">&#xe6e4; {{ object.coin }}</font>
+                        </div>
+                        <div class="column">
+                            <font face="bili" size="4">&#xe6e1; {{ object.favorite }}</font>
+                        </div>
+                        <div class="column">
+                            <font face="bili" size="4">&#xe70f; {{ object.share }}</font>
+                        </div>
+                        <div class="column">
+                            <font face="bili" size="4">&#xe639; {{ object.reply }}</font>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui segment">
+                    <div class="ui top attached large label">简介</div>
+                    <p>{{ object.desc|linebreaksbr }}</p>
+                </div>
+
+                <div class="ui segment">
+                    <div class="ui top attached large label">精选评论</div>
+                    {% for comment in object.get_comments %}
+                    <div class="ui vertical segment">
+                        <p>{{ comment|linebreaksbr }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="right ui rail" style="">
+                <div class="ui sticky">
+                    <a class="ui card" href="{% url 'searcher:up-detail' object.get_owner.mid %}">
+                        <div class="content">
+                            <img class="right floated ui tiny circular image"
+                                src="{% static 'searcher/data/'%}{{ object.get_owner.pic_path }}">
+                            <div class="header">
+                                {{ object.get_owner.name }}
+                                <font face="bili" size="5">&#{{ object.get_owner.level_icon }};</font>
+                            </div>
+                            <div class="meta">
+                                <div class="item">
+                                    关注数 {{ object.get_owner.attention }}
+                                </div>
+                                <div class="item">
+                                    粉丝数 {{ object.get_owner.fans }}
+                                </div>
+                            </div>
+                            <div class="description">
+                                {{ object.get_owner.sign }}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        $('.ui.sticky')
+            .sticky({
+                offset: 100,
+                bottomOffset: 100,
+                context: '#video'
+            });
+    </script>
+
+</main>
+{% endblock main_block %}

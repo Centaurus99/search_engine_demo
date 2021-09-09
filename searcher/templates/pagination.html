@@ -1,0 +1,73 @@
+<div class="ui container" align="center">
+    <div class="ui pagination menu" id="pg">
+        {% if page_obj.has_previous %}
+        <a class="icon item"
+            href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+            <i class="chevron left icon"></i>
+        </a>
+        {% else %}
+        <a class="disabled icon item">
+            <i class="chevron left icon"></i>
+        </a>
+        {% endif %}
+
+        {% if not 1 in show_range %}
+        <a class="icon item"
+            href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+            1
+        </a>
+        {% endif %}
+
+        {% if not 2 in show_range and 2 < page_obj.number %}
+        <div class="disabled item">
+            ...
+        </div>
+        {% endif %}
+
+        {% for page in show_range %}
+        {% if page == page_obj.number %}
+        <a class="active item">
+            {{ page }}
+        </a>
+        {% else %}
+        <a class="item"
+            href="?page={{ page }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+            {{ page }}
+        </a>
+        {% endif %}
+        {% endfor %}
+
+        {% if not page_obj.paginator.num_pages|add:-1 in show_range and page_obj.number < page_obj.paginator.num_pages%}
+        <div class="disabled item">
+            ...
+        </div>
+        {% endif %}
+
+        {% if not page_obj.paginator.num_pages in show_range %}
+        <a class="icon item"
+            href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+            {{ page_obj.paginator.num_pages }}
+        </a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+        <a class="icon item"
+            href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+            <i class="chevron right icon"></i>
+        </a>
+        {% else %}
+        <a class="disabled icon item">
+            <i class="chevron right icon"></i>
+        </a>
+        {% endif %}
+
+        <div class="ui item">
+            <div class="ui transparent icon input">
+                <input class="page_input" type="text" size="8" placeholder="输入页码..."
+                    max={{ page_obj.paginator.num_pages }} />
+                <i class="large arrow alternate circle right outline link icon jump_btn">
+                </i>
+            </div>
+        </div>
+    </div>
+</div>
