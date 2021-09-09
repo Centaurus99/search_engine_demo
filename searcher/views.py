@@ -81,8 +81,8 @@ class VideoSearch(generic.ListView):
         self.__time = time.time() - self.__time
         context['search_time'] = round(self.__time, 4)
         context['h1'] = '视频搜索'
-        context['h2'] = '在 {} 秒内找到 {} 条相关视频'.format(
-            context['search_time'], context['page_obj'].paginator.count)
+        context['h2'] = '在 {} 秒内找到 {} 条 "{}" 相关视频'.format(
+            context['search_time'], context['page_obj'].paginator.count, self.search)
         context['title'] = '{} 相关视频搜索结果'.format(self.search)
         return context
 
@@ -109,7 +109,7 @@ class UpSearch(generic.ListView):
         self.__time = time.time() - self.__time
         context['search_time'] = round(self.__time, 4)
         context['h1'] = 'UP 搜索'
-        context['h2'] = '在 {} 秒内找到 {} 名相关 UP 主'.format(
-            context['search_time'], context['page_obj'].paginator.count)
+        context['h2'] = '在 {} 秒内找到 {} 名 "{}" 相关 UP 主'.format(
+            context['search_time'], context['page_obj'].paginator.count, self.search)
         context['title'] = '{} 相关UP主搜索结果'.format(self.search)
         return context
