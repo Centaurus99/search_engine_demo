@@ -1,4 +1,5 @@
 # search_engine_demo
+
 基于 Django 的程序设计训练课程作业
 
 用于展示和搜索 [bilibili-spider](https://github.com/Centaurus99/bilibili-spider) 所爬取数据的简易搜索网站
@@ -70,6 +71,3 @@
   - 视图层：基于 `Django` 的通用显示视图 `ListView` 和 `DetailView` 并进行了一定的改造，增加了相关查询计时和页面需要显示的信息
   - 模板层：根据 CSS 框架提供的 [教程](https://semantic-ui.com/introduction/getting-started.html) 进行页面和元素设计
 - 前端部分使用 CSS 框架 [Semantic UI](https://github.com/semantic-org/semantic-ui) ，并编写了 `jump.js` 进行页码跳转的检验和页面跳转
-
-
-
