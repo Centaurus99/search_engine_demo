@@ -129,8 +129,8 @@ dmypy.json
 .pyre/
 
 # Custom settings
-settings.py
 *.sqlite3
 data/
 *.ini
 *.swp
+*.key
